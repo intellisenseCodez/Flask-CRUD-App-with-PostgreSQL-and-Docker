@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flask-restapi-crud-app
+  name: flask-restapi-crud-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-restapi-crud-app
+      version: stable
+  template:
+    metadata:
+      labels:
+        app: flask-restapi-crud-app
+        version: stable
+    spec:
+      containers:
+      - name: flask-restapi-crud-app-container
+        image: horlar/flask-restapi-crud-app:stable
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 5000

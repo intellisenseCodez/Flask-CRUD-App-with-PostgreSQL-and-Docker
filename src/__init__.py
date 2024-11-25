@@ -7,6 +7,7 @@ from config import Config
 
 # instance flask
 app = Flask(__name__)
+
 app.config.from_object(Config)
 
 
@@ -16,4 +17,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-from src.books import routes, models
+from src import routes, models

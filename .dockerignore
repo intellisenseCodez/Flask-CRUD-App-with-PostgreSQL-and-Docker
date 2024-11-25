@@ -1,0 +1,18 @@
+# develoment db
+book.db
+migrations
+
+
+# Env-Specifc
+.gitignore
+.git*
+.vscode
+venv
+
+# Python-Specific
+.mypy*
+
+# Documentation
+LICENSE
+docs
+scripts
