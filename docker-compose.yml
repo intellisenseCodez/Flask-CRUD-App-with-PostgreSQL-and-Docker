@@ -4,7 +4,7 @@ version: "3"
 services:
   flask-restapi-crud-app:
     container_name: flask-restapi-crud-app-container
-    image: horlar/flask-restapi-crud-app:stable
+    image: horlar/flask-restapi-crud-app:${IMAGE_TAG}
     restart: always
     build: .
     environment:
