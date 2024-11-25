@@ -21,9 +21,4 @@ COPY ./ /app/
 
 EXPOSE 5000
 
-RUN flask db init
-RUN flask db migrate
-RUN flask db upgrade 
-
-
 CMD [ "python3", "-m", "flask", "run",  "--host=0.0.0.0", "--port=5000"]

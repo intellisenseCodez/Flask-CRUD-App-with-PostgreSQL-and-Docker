@@ -5,6 +5,7 @@ services:
   flask-restapi-crud-app:
     container_name: flask-restapi-crud-app-container
     image: horlar/flask-restapi-crud-app:stable
+    restart: always
     build: .
     environment:
       DATABASE_URL: ${DATABASE_URL}
@@ -18,17 +19,15 @@ services:
   flask_db:
     container_name: flask_db
     image: postgres
+    restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5123:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data/pgdata
-
-
-  
-  
+      - "5432:5432"
+    # volumes:
+    #   - pgdata:/var/lib/postgresql/data/pgdata
+    
 volumes:
-  pgdata: {}
+  pgdata: 

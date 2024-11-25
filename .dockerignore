@@ -1,6 +1,5 @@
 # develoment db
 book.db
-migrations
 
 
 # Env-Specifc
@@ -15,4 +14,4 @@ venv
 # Documentation
 LICENSE
 docs
-scripts
+
