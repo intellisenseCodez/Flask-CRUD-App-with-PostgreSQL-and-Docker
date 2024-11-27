@@ -1,0 +1,12 @@
+# PersistentVolumeClaim for Postgres storage
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pv-claim  # Name of the PVC
+  namespace: default  # Namespace where the PVC will be created
+spec:
+  accessModes:
+    - ReadWriteOnce  # Single node can read/write
+  resources:
+    requests:
+      storage: 5Gi  # Storage size requested

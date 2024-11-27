@@ -1,0 +1,34 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   labels:
+#     app: flask-restapi-crud-app
+#   name: flask-restapi-crud-app-nodeport
+# spec:
+#   type: NodePort
+#   selector:
+#     app: flask-restapi-crud-app-deployment
+#   ports:
+#   - port: 80
+#     targetPort: 5000
+#     nodePort: 30007
+
+
+
+# Service for exposing the Flask application
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-restapi-crud-service  # Name of the service
+  namespace: default  # Namespace where the service will be created
+  labels:
+    app: flask-restapi-crud-service  # Label to identify the service
+spec:
+  ports:
+  - protocol: TCP  # Protocol for communication
+    port: 80  # External port exposed by the service
+    targetPort: 5000  # Port on the container the service forwards to
+  selector:
+    app: flask-restapi-crud-app-pod  # Selects pods with this label
+  type: LoadBalancer  # Exposes the service using a load balancer
+  loadBalancerIP: ""  # Can specify a static IP if required

@@ -1,0 +1,51 @@
+# Deployment for Postgres database
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres  # Name of the deployment
+  namespace: default  # Namespace where the deployment will be created
+  labels:
+    app: postgres  # Label to identify the deployment
+spec:
+  replicas: 2  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: postgres  # Ensures the pod matches this label
+  template:
+    metadata:
+      labels:
+        app: postgres  # Labels assigned to the pod
+    spec:
+      containers:
+      - name: postgres  # Name of the container
+        image: postgres  # Postgres container image
+        env:
+        - name: POSTGRES_DB  # Database name from ConfigMap
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_DB
+              name: postgres-config
+        - name: POSTGRES_USER  # Database user from ConfigMap
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_USER
+              name: postgres-config
+        - name: POSTGRES_PASSWORD  # Database password from ConfigMap
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PASSWORD
+              name: postgres-config
+        resources:
+          limits:
+            memory: "128Mi"  # Maximum memory allowed for the container
+            cpu: "250m"  # Maximum CPU allowed for the container
+        ports:
+        - containerPort: 5432  # Port for Postgres communication
+          name: postgres
+        volumeMounts:
+        - name: postgres-storage  # Mount the volume
+          mountPath: /var/lib/postgresql/db-data  # Path inside the container
+      volumes:
+      - name: postgres-storage  # Volume definition
+        persistentVolumeClaim:
+          claimName: postgres-pv-claim  # Links to the PersistentVolumeClaim

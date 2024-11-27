@@ -1,0 +1,15 @@
+# ConfigMap to store Postgres configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config  # Name of the ConfigMap
+  namespace: default  # Namespace where the ConfigMap will be created
+  labels:
+    app: postgres  # Label to identify the ConfigMap
+data:
+  POSTGRES_DB: ${POSTGRES_DB}  # Name of the Postgres database
+  POSTGRES_USER: ${POSTGRES_USER}  # Username for the Postgres database
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  # Password for the Postgres database
+
+
+

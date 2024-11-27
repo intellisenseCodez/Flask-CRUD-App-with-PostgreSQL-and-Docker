@@ -1,0 +1,27 @@
+# Deployment for the Flask REST API application
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-restapi-crud-app-deployment  # Name of the deployment
+  namespace: default  # Namespace where the deployment will be created
+  labels:
+    app: flask-restapi-crud-app-deployment  # Label to identify the deployment
+spec:
+  replicas: 1  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: flask-restapi-crud-app-pod  # Ensures the pod matches this label
+  template:
+    metadata:
+      labels:
+        app: flask-restapi-crud-app-pod  # Labels assigned to the pod
+    spec:
+      containers:
+      - name: flask-restapi-crud-app-container  # Name of the container
+        image: horlar/flask-restapi-crud-app:v1.0  # Flask application image
+        resources:
+          limits:
+            memory: "128Mi"  # Maximum memory allowed for the container
+            cpu: "250m"  # Maximum CPU allowed for the container
+        ports:
+        - containerPort: 5000

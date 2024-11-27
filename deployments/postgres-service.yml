@@ -1,0 +1,11 @@
+# Service for exposing Postgres database
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres  # Name of the service
+  namespace: default  # Namespace where the service will be created
+spec:
+  ports:
+  - port: 5432  # Port exposed by the service
+  selector:
+    app: postgres  # Selects pods with this label
