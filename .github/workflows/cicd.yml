@@ -45,3 +45,23 @@ jobs:
                 echo "Running unit testing"
                 pytest
               shell: bash
+
+    build-and-publish-image-dockerhub:
+        name: Build and publish image to Dockerhub
+        needs: build-and-test
+        runs-on: ubuntu-latest
+
+        steps:
+            # checkout of code
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            # Build Image
+            - name: build a docker image
+              run: docker build -t horlar/flask-restapi-crud-app:latest .
+
+            # Push dockerhub
+            - name: push image to dockerhub
+              run: |
+                docker login -u horlar -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+                docker push horlar/flask-restapi-crud-app:latest
