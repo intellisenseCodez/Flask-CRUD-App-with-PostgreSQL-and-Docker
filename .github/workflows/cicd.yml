@@ -1,0 +1,47 @@
+name: CI/CD for FlaskAPI Dockerized App
+
+
+# define a specific event
+on:
+    push:
+        branches: [ master ]
+        # paths:
+        #     - "./Dockerfile"
+        paths-ignore:
+            - "README.md"
+            - "**/docs"
+    pull_request:
+        branches: [ master ]
+
+    workflow_dispatch:
+
+# define jobs
+jobs:
+    build-and-test:
+        name: Build and Test
+        runs-on: ubuntu-latest 
+
+        steps:
+            # checkout of code
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            # setup python
+            - name: Set up python
+              uses: actions/setup-python@v5
+              with:
+                python-version: '3.13'
+                cache: 'pip' # caching pip dependencies
+            
+            # install requirements
+            - name: install dependencies
+              run: |
+                pip install -r requirements.txt
+              shell: bash
+
+            # Test code
+            - name: test code
+              run: |
+                echo "Running unit testing"
+                pytest
+              shell: bash

@@ -1,8 +1,8 @@
 # pull official base image
-FROM python:slim
+FROM python:3.11-alpine3.18
 
 LABEL NAME=flask-crud-restapi-image
-LABEL VERSION=stable
+LABEL VERSION=latest
 
 # set work directory
 WORKDIR /app

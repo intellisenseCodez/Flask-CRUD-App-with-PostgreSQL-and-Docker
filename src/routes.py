@@ -4,18 +4,17 @@ from src import app, db
 from src.models import BookModel
 
 @app.route("/", methods=["GET"])
-def test():
+def home():
     return """<h1> Flask Crud APP</h1>
                 <p> A flask rest api implementation using Docker Container. </p>
             """
 
 
 # Display all books
-@app.route("/books", methods=["GET"])
+@app.route("/bookapi/books", methods=["GET"])
 def get_all_books():
     try:
         books = BookModel.query.all()
-        print(books)
         return make_response(jsonify([book.json() for book in books]), 200)
     except Exception as e :
         print(f"Error getting books: {e}")
@@ -23,7 +22,7 @@ def get_all_books():
     
     
 # Create a book
-@app.route("/books/create", methods=["POST"])
+@app.route("/bookapi/books/create", methods=["POST"])
 def create_book():
     try:
         data = request.get_json()
@@ -57,7 +56,7 @@ def create_book():
     
     
 # Get specific book
-@app.route("/books/<int:book_id>", methods=["GET"])
+@app.route("/bookapi/books/<int:book_id>", methods=["GET"])
 def get_book(book_id):
     try:
         book = BookModel.query.get({"id":book_id})
@@ -71,7 +70,7 @@ def get_book(book_id):
      
      
 # update specific book
-@app.route("/books/<int:book_id>", methods=["PUT"])
+@app.route("/bookapi/books/<int:book_id>", methods=["PUT"])
 def update_book(book_id):
     try:
         book = BookModel.query.get({"id":book_id})
@@ -96,7 +95,7 @@ def update_book(book_id):
         return make_response(jsonify({"message":"error creating books"}), 500)
     
 # delete specific book
-@app.route("/books/<int:book_id>", methods=["DELETE"])
+@app.route("/bookapi/books/<int:book_id>", methods=["DELETE"])
 def delete_book(book_id):
     try:
         book = BookModel.query.get({"id":book_id})
