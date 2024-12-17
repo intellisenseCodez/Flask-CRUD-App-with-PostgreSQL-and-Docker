@@ -121,8 +121,8 @@ jobs:
               id: login-ecr
               uses: aws-actions/amazon-ecr-login@v1
 
-            # Build, and push image to ECR
-            - name: Build and Push Image to ECR
+            # Build, tag and push image to ECR
+            - name: Build, Tag and Push Image to ECR
               id: build-image
               env:
                 ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -135,8 +135,8 @@ jobs:
 
     continuous-deployment:
         name: Deploy container image to AWS ECS
-        needs: build-and-test
-        runs-on: ubuntu-latest
+        needs: build-and-publish-image-ecr
+        runs-on: self-hosted
 
         steps:
             # checkout of code
